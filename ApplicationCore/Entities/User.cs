@@ -24,7 +24,7 @@ namespace ApplicationCore.Entities
 
         // Navigation Properties
 
-        public ICollection<Role> Roles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<Purchase> Purchases { get; set; }
         public ICollection<Favorite> Favorites { get; set; }
         public ICollection<Review> Reviews { get; set; }

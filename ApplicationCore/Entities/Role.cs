@@ -13,6 +13,6 @@ namespace ApplicationCore.Entities
 
         // Navigation Properties
 
-        public ICollection<User> Users { get; set; }
+        public ICollection<UserRole> RoleUsers { get; set; }
     }
 }

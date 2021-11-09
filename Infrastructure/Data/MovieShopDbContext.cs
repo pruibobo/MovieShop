@@ -44,25 +44,41 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Movie>(ConfigureMovie);
             modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
             modelBuilder.Entity<MovieCrew>(ConfigureMovieCrew);
-            // modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre); EF will automatically create
+            modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre);
             modelBuilder.Entity<Purchase>(ConfigurePurchase);
             modelBuilder.Entity<Review>(ConfigureReview);
             modelBuilder.Entity<Role>(ConfigureRole);
             modelBuilder.Entity<Trailer>(ConfigureTrailer);
             modelBuilder.Entity<User>(ConfigureUser);
-            // modelBuilder.Entity<UserRole>(ConfigureUserRole); EF will automatically create
+            modelBuilder.Entity<UserRole>(ConfigureUserRole);
 
             // Create many-to-many relationships using junction table
-            modelBuilder.Entity<Movie>().HasMany(m => m.Genres).WithMany(g => g.Movies)
+            /*modelBuilder.Entity<Movie>().HasMany(m => m.Genres).WithMany(g => g.Movies)
                 .UsingEntity<Dictionary<string, object>>("MovieGenre",
                     m => m.HasOne<Genre>().WithMany().HasForeignKey("GenreId"),
                     g => g.HasOne<Movie>().WithMany().HasForeignKey("MovieId"));
             modelBuilder.Entity<User>().HasMany(u => u.Roles).WithMany(r => r.Users)
                 .UsingEntity<Dictionary<string, object>>("UserRoles",
                     u => u.HasOne<Role>().WithMany().HasForeignKey("RoleId"),
-                    r => r.HasOne<User>().WithMany().HasForeignKey("UserId"));
+                    r => r.HasOne<User>().WithMany().HasForeignKey("UserId"));*/
 
 
+        }
+
+        private void ConfigureUserRole(EntityTypeBuilder<UserRole> builder)
+        {
+            builder.ToTable("UserRole");
+            builder.HasKey(ur => new {ur.RoleId, ur.UserId});
+            builder.HasOne(ur => ur.Role).WithMany(r => r.RoleUsers).HasForeignKey(ur => ur.RoleId);
+            builder.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId);
+        }
+
+        private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder)
+        {
+            builder.ToTable("MovieGenre");
+            builder.HasKey(mg => new {mg.MovieId, mg.GenreId});
+            builder.HasOne(mg => mg.Movie).WithMany(m => m.MovieGenres).HasForeignKey(mg => mg.MovieId);
+            builder.HasOne(mg => mg.Genre).WithMany(g => g.GenreMovies).HasForeignKey(mg => mg.GenreId);
         }
 
         private void ConfigureUser(EntityTypeBuilder<User> builder)
@@ -145,12 +161,12 @@ namespace Infrastructure.Data
             builder.Property(m => m.Budget).HasColumnType("decimal(18,2)").HasDefaultValue(9.9m);
             builder.Property(m => m.Revenue).HasColumnType("decimal(18,2)").HasDefaultValue(9.9m);
             builder.Property(m => m.ImdbUrl).HasMaxLength(2084);
-            builder.Property(m => m.TmbdUrl).HasMaxLength(2084);
+            builder.Property(m => m.TmdbUrl).HasMaxLength(2084);
             builder.Property(m => m.PosterUrl).HasMaxLength(2084);
             builder.Property(m => m.BackdropUrl).HasMaxLength(2084);
             builder.Property(m => m.OriginalLanguage).HasMaxLength(64);
             builder.Property(m => m.Price).HasColumnType("decimal(5,2)").HasDefaultValue(9.9m);
-            builder.Property(m => m.CreateDate).HasDefaultValue("getdate()");
+            builder.Property(m => m.CreateDate).HasDefaultValueSql("getdate()");
             builder.Ignore(m => m.Rating);
         }
 

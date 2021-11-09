@@ -13,6 +13,6 @@ namespace ApplicationCore.Entities
 
         // Navigation Properties
 
-        public ICollection<Movie> Movies { get; set; }
+        public ICollection<MovieGenre> GenreMovies { get; set; }
     }
 }

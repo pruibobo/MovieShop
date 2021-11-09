@@ -15,7 +15,7 @@ namespace ApplicationCore.Entities
         public decimal? Budget { get; set; }
         public decimal? Revenue { get; set; }
         public string? ImdbUrl { get; set; }
-        public string? TmbdUrl { get; set; }
+        public string? TmdbUrl { get; set; }
         public string? PosterUrl { get; set; }
         public string? BackdropUrl { get; set; }
         public string? OriginalLanguage { get; set; }
@@ -24,12 +24,13 @@ namespace ApplicationCore.Entities
         public decimal? Price { get; set; }
         public DateTime? CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
-        public string UpdatedBy { get; set; }
-        public string CreatedBy { get; set; }
+        public string? UpdatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         public decimal? Rating { get; set; }
 
         // Navigation Properties
         public ICollection<Trailer> Trailers { get; set; }
+        public ICollection<MovieGenre> MovieGenres { get; set; }
         public ICollection<Genre> Genres { get; set; }
         public ICollection<MovieCast> MovieCasts { get; set; }
         public ICollection<Review> Reviews { get; set; }

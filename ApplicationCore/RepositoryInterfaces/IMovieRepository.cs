@@ -7,7 +7,7 @@ using ApplicationCore.Entities;
 
 namespace ApplicationCore.RepositoryInterfaces
 {
-    interface IMovieRepository : IAsyncRepository<Movie>
+    public interface IMovieRepository : IAsyncRepository<Movie>
     {
         Task<List<Movie>> GetTop30RevenueMovies();
         Task<IEnumerable<Movie>> GetTopRatedMovies();

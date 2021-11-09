@@ -7,7 +7,7 @@ using ApplicationCore.Entities;
 
 namespace ApplicationCore.RepositoryInterfaces
 {
-    interface IGenreRepository : IAsyncRepository<Genre>
+    public interface IGenreRepository : IAsyncRepository<Genre>
     {
         Task<List<Genre>> GetAllGenres();
     }

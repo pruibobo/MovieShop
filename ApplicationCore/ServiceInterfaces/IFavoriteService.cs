@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore.Models;
 
 namespace ApplicationCore.ServiceInterfaces
 {
-    class IFavoriteService
+    public interface IFavoriteService
     {
+        Task<FavoriteRequestModel> FavoriteMovie(FavoriteRequestModel favoriteRequestModel);
     }
 }
